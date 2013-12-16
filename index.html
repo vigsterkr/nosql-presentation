@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NoSQL</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <link href="styles/impress.css" rel="stylesheet" type="text/css" />
+    <link href="styles/animation.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/jmpress.custom.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="stylesheet" href="styles/prism.css" data-noprefix />
+</head>
+<body>
+
+<div id="impress" class="impress-not-supported">
+
+    <div id="title" class="step" data-x="0" data-y="-400" data-scale="4">
+	<h1>NoSQL</h1>
+        <span class="subtitle">skálázható adatbázisok ::</span>
+
+        <span class="footnote"><b>Gál Viktor</b></span>
+    </div>
+
+    <div id="intro" class="step" data-x="200" data-y="2000" data-rotate="0" data-scale="5">
+        <p><b>N</b>ot <b>O</b>nly SQL</p>
+        <ul>
+         <li>SQL: hagyományos relációs adatbázis</li>
+         <li>
+Az elmúlt évtized felísmerése:<br/>
+    <i>Nem minden adat tárolási és -elemzési problémára a legjobb megoldás a
+    hogyományos relációs DB</i>
+         </li>
+        <li>No SQL
+        <script id="MathJax-Element-5" type="math/tex">
+  \to
+</script>SQL nyelv mentesség</li>
+        </ul>
+	</div>
+
+    <div id="rdbms-pos" class="step" data-x="5200" data-y="2100" data-scale="6">
+        <p><b>RDBMS előnyei :: ACID</b></p>
+        <ul>
+	       <li data-jmpress="fade">Atomicity<span data-jmpress="fade">: mindent vagy semmit</span></li>
+           <li data-jmpress="fade">Consistency</li>
+           <li data-jmpress="fade">Isolation<span data-jmpress="fade">: tranzakciók párhuzamosíthatósága</span></li>
+           <li data-jmpress="fade">Durability<span data-jmpress="fade">: végrehajtott tranzakció örök</span></li>
+        </ul>
+    </div>
+
+    <div id="rdbms-neg" class="step" data-x="3500" data-y="-1850" data-rotate="270" data-scale="6">
+        <p><b>RDBMS hátrányai</b>:</p>
+        <ul>
+           <li data-jmpress="fade">Skálázhatóság</li>
+           <li data-jmpress="fade">Komplexitás</li>
+           <li data-jmpress="fade">SQL - struktúrált adat</li>
+        </ul>
+    </div>
+
+    <div id="motivations" class="step" data-x="2825" data-y="2325" data-z="-3000" data-scale="1">
+        <p><b>NoSQL rendszerek tulajdonságai</b></p>
+        <ul>
+         <li data-jmpress="fade">Flexibilis séma</li>
+         <li data-jmpress="fade">Gyorsabb/olcsóbb létrehozás</li>
+         <li data-jmpress="fade">Skálázhatóság</li>
+         <li data-jmpress="fade">Relaxált konzisztencia
+<script id="MathJax-Element-1" type="math/tex">
+  \to
+</script>
+         <font color="green">nagyobb teljesítmény</font> & <font color="green">elérhetőség</font>, <font color="red">kevesebb garancia</font> (konzisztencia)</li>
+         <li data-jmpress="fade">Nincs lekérdezőnyelv
+<script id="MathJax-Element-2" type="math/tex">
+  \to
+</script>
+         <font color="red">több programozás</font></li>
+         </ul>
+    </div>
+
+
+    <div id="taxonomy" class="step" data-x="3825" data-y="2325" data-z="-3000" data-scale="1">
+       <p><b>NoSQL rendszertípusok:</b></p>
+           <li><b>(Széles) oszlop</b>: BigTable, <a href="http://hbase.apache.org/">HBase</a>, <a href="http://accumulo.apache.org/">Accumulo</a>, <a href="http://cassandra.apache.org/">Cassandra</a>, <a href="http://hypertable.org/">Hypertable</a></li>
+           <li><b>Dokumentum</b>: MarkLogic, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://couchdb.apache.org/">CouchDB</a></li>
+           <li><b>Kulcs-érték</b>: Dynamo, <a href="http://basho.com/riak/">Riak</a>, <a href="http://redis.io/">Redis</a>, Cache, Project Voldemort</li>
+           <li><b>Gráf</b>: <a href="http://www.neo4j.org/">Neo4J</a>, <a href="http://www.franz.com/agraph/allegrograph/">Allegro</a>, <a href="http://virtuoso.openlinksw.com/">Virtuoso</a>, <a href="http://thinkaurelius.github.io/titan/">Titan</a>, <a href="https://github.com/twitter/flockdb">FlockDB</a></li>
+    </div>
+
+    <div id="bigtable" class="step" data-x="2825" data-y="3600" data-z="-3000" data-scale="1">
+       <p><b>BigTable</b></p>
+        "a distributed storage system for managing structured data that is designed
+       to scale to a <b>very large size</b>: petabytes of data across thousands of commodity servers" [GoogleLabs]
+
+     </div>
+
+    <div id="bigtable-definition" class="step" data-x="4000" data-y="3600" data-z="-3000" data-scale="1">
+       <p><b>BigTable</b></p>
+  <ul>
+        <li>elosztott</li>
+        <li>Háromdimenziós leképezés:<br/> két tetszőleges karaktersorozathoz (sor- és oszlop kulcs) illetve
+        egy időbélyeghez rendel egy tetszőleges bájt sorozatot.</li>
+        <li>(sor:string, oszlop:string, időbélyeg:int64)
+<script id="MathJax-Element-3" type="math/tex">
+  \to
+</script>
+
+        string</li>
+       </ul>
+       </div>
+
+
+<div id="bigtable-example" class="step" data-x="5000" data-y="3600" data-z="-3000" data-scale="1">
+    <p><b>Felhasználási terület</b></p>
+       <ul>
+        <li>web indexálás</li>
+        <li>Google Earth</li>
+        <li>Google Analytics</li>
+        <li>Google Docs</li>
+       </ul>
+    </div>
+
+    <div id="bigtable-model" class="step" data-x="2825" data-y="4300" data-z="-3000" data-scale="1">
+       <p><b>BigTable adatmodell</b></p>
+
+       <ul>
+        <li>sor név: fordított URL (hu.444)</li>
+        <li>tartalom oszlop családban tárolják az oldal tartalmát</li>
+        <li>Referencia oszlop családban tárolják az oldalra hivatkozott szöveget</li>
+       </ul>
+    </div>
+
+    <div id="bigtable-model" class="step" data-x="4000" data-y="4300" data-z="-3000" data-scale="1">
+       <p><b>BigTable megjegyzések:</b></p>
+
+       <ul>
+        <li>kötetlen sor- illetve oszlopszám</li>
+        <li>minden értékhez hozzá van rendelve egy időbélyeg</li>
+        <li>minden értékre egy hármassal hivatkozunk (domain-név, oszlop-név, időbélyeg)</li>
+       </ul>
+    </div>
+
+    <div id="documentdb" class="step" data-x="2825" data-y="6000" data-z="-3000" data-scale="1">
+       <p><b>Dokumentum DB</b></p>
+       <ul>
+        <li>Dokument centrikus tárolás, lekérdezés és adatbázis kezelés</li>
+        <li>Nincs előre meghatározott séma</li>
+       </ul>
+
+    </div>
+
+    <div id="mongodb" class="step" data-x="3825" data-y="6000" data-z="-3000" data-scale="1">
+       <p><b>MongoDB</b></p>
+       <ul>
+        <li>Collection oriented storage - easy storage of object-style data</li>
+        <li>Full index support, including on inner objects</li>
+        <li>Query profiling</li>
+        <li>Replication and fail-over support</li>
+        <li>Efficient storage of binary data including large objects (e.g. videos)</li>
+        <li>Auto-sharding</li>
+       </ul>
+    </div>
+
+      <div id="mongodb-model" class="step" data-x="4825" data-y="6000" data-z="-3000" data-scale="1">
+       <p><b>MongoDB felépítése</b></p>
+       <ul>
+        <li>Mongo rendszer = adatbázisok halmaz</li>
+        <li>Adatbázis = kollekciók halmaz</li>
+        <li>Kollekció = dokumentumok halmaza</li>
+        <li>Dokumentum = mező halmaz</li>
+        <li>Mező = kulcs-érték párból áll</li>
+        <li>Kulcs: egyszerű karaktersorozat</li>
+        <li>Érték: string, integer, float, timestamp, binary, dokumentum stb.</li>
+       </ul>
+    </div>
+
+   <div id="mongodb-storage" class="step" data-x="5825" data-y="6000" data-z="-3000" data-scale="1">
+       <p><b>BSON</b></p>
+       <ul>
+        <li>MongoDB JSON document adatbázis</li>
+        <li>Egy Mongo dokumentum ~ sor a relációs adatbázisban, de nincs séma</li>
+        <li>Nincs séma
+        <script id="MathJax-Element-10" type="math/tex">
+  \to
+</script>
+dokumentumok tartalmazhatnak egyedi mezőket.
+       <li data-jmpress="fade">Könnyen importálható bármilyen adabázis, mivel nem kell előfeldolgozni a bemeneti adatot</li>
+</ul>
+    </div>
+
+<script src="scripts/prism.js"></script>
+
+<div id="mongodb-example" class="step" data-x="6825" data-y="6000" data-z="-3000" data-scale="1">
+       <p><b>BSON példa</b></p>
+<pre class="small">
+<code class="language-css">{
+   title: "Back to the Future",
+   year: 1985,
+   director: "Robert Zemeckis",
+   writers: [ "Robert Zemeckis", "Bob Gale" ],
+   stars: [ "Michael J. Fox", "Christopher Lloyd", "Lea Thompson" ]
+}</code></pre>
+
+<pre class="small">
+<code class="language-css">{
+  title: "One Day on Earth",
+  year: 2012,
+  director: "Kyle Ruddick",
+  creator: [ "Kyle Ruddick" ],
+}</code></pre>
+    </div>
+
+      <div id="mongodb-mysql" class="step" data-x="3825" data-y="6700" data-z="-3000" data-scale="1">
+       <p>MySQL - MongoDB</p>
+
+       <ul>
+        <li>database - database</li>
+        <li>table - collection</li>
+        <li>row - document</li>
+        <li>column - field</li>
+        <li>index - index</li>
+        <li>table joins - beaga</li>
+        <li>primary key - primary key</li>
+        <li>aggregation - aggregation pipeline</li>
+       </ul>
+    </div>
+
+
+      <div id="mongodb-duplicate" class="step" data-x="4825" data-y="6700" data-z="-3000" data-scale="1">
+      <p><b>Egyező dokumentumok</b></p>
+    <ul>
+        <li>Minden bejegyzés egy új dokumentum, teljesen egyező bemenet esetén is</li>
+        <li>Upsert = update ha mar letezik a dokumentum, insert ha nem</li>
+    </ul>
+
+</div>
+
+ <div id="mongodb-users" class="step" data-x="5825" data-y="6700" data-z="-3000" data-scale="1">
+    <p><b>Felhasználók</b></p>
+     <p class="list">
+    Craigslist, SAP, MTV, Sourceforge, Disney, Electronic Arts,
+    UK National Archives,
+    Sunlight Labs,
+    SPARC,
+    The Guardian,
+    Forbes,
+    The New York Times,
+    Chicago Tribune,
+    Intuit,
+    bit.ly,
+    GitHub,
+    CERN (Large Hadron Collider),
+    Fousquare,
+    Viber,
+    Grooveshark</p>
+</div>
+<!--
+    <div id="graphdb" class="step" data-x="7600" data-y="-300" data-scale="6">
+       <p>Gráf DB</p>
+    </div>
+
+    <div id="RDF" class="step" data-x="7600" data-y="-300" data-scale="6">
+       <p>RDF</p>
+
+    </div>
+
+    <div id="SPARQL" class="step" data-x="7600" data-y="-300" data-scale="6">
+       <p>SPARQL</p>
+    </div>
+
+
+    -->
+
+ <div id="BASE" class="step" data-x="8100" data-y="-900" data-scale="6">
+       <p><b>BASE</b></p>
+       <ul>
+        <li><b>B</b>asically <b>A</b>vailable</li>
+        <li><b>S</b>oft state: inkonzisztencia megengedett</li>
+        <li><b>E</b>ventually consistent: a jövő egy adott pillanatában konzisztens adat</li>
+       </ul>
+    </div>
+
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$('#impress').jmpress({
+	    keyboard: {
+ 	       keys: {
+        	    79: ['select', '#overview']
+        	}
+    	}
+
+	});
+});
+</script>
+
+</body>
+</html>
